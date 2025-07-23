@@ -13,10 +13,10 @@ class Connection {
         $capsule->addConnection(
             [
                 'driver'    => 'mysql',
-                'host'      => '127.0.0.1',
-                'database'  => 'taller_slim',
-                'username'  => 'root',
-                'password'  => 'admin',
+                'host'      => $_ENV['DB_HOST'],
+                'database'  => $_ENV['DB_NAME'],
+                'username'  => $_ENV['DB_USER'],
+                'password'  => $_ENV['DB_PASS'],
                 'charset'   => 'utf8',
                 'collation' => 'utf8_unicode_ci',
                 'prefix'    => '',

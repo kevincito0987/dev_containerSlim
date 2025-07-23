@@ -1,8 +1,10 @@
 <?php
 
+namespace App\Domains\Models;
 
+use Illuminate\Database\Eloquent\Model;
 
-class Camper
+class Camper extends Model
 {
     protected $table = 'campers';
     protected $primaryKey = 'id';

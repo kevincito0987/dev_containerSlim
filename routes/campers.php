@@ -1,10 +1,9 @@
-<?php 
+<?php
 
-use Slim\App;
 use App\Controllers\CamperController;
+use Slim\App;
 
-return function ( App $app ) {
-
+return function (App $app) {
     $app->group('/campers', function ($group) {
         $group->get('', [CamperController::class, 'index']);
         $group->get('/{documento}', [CamperController::class, 'show']);
@@ -13,10 +12,3 @@ return function ( App $app ) {
         $group->delete('/{documento}', [CamperController::class, 'destroy']);
     });
 };
-
-
-
-
-
-
-?>

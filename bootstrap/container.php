@@ -1,16 +1,19 @@
 <?php
 
-use App\Domains\Repositories\CamperRepositoryInterface;
-use App\Infrastructure\Repositories\EloquentCamperRepositorie;
+use App\Domain\Repositories\CamperRepositoryInterface;
+use App\Infrastructure\Repositories\EloquentCamperRepository;
 use DI\Container;
 
 
-$contaier = new Container();
+$container = new Container();
 
-$contaier->set(CamperRepositoryInterface::class, function () {
-    return new EloquentCamperRepositorie();
+$container->set(CamperRepositoryInterface::class, function () {
+    return new EloquentCamperRepository();
 });
 
-return $contaier;
+// new CamperController(new EloquentCamperRepository())
+
+return $container;
+
 
 ?>

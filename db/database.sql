@@ -1,6 +1,5 @@
 
 DROP DATABASE IF EXISTS taller_slim;
-DROP DATABASE IF EXISTS php_pdo;
 CREATE DATABASE IF NOT EXISTS taller_slim;
 
 USE taller_slim;

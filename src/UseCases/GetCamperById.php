@@ -1,32 +1,17 @@
-<?php 
+<?php
 
 namespace App\UseCases;
-use App\Domains\Models\Camper;
-use App\Domains\Repositories\CamperRepositoryInterface;
 
-class GetCamperById {
+use App\Domain\Models\Camper;
+use App\Domain\Repositories\CamperRepositoryInterface;
 
-    public function __construct(private CamperRepositoryInterface $repo)
-    {}
-    public function execute(int $documento): ?Camper {
+class GetCamperById
+{
+
+    public function __construct(private CamperRepositoryInterface $repo) {}
+
+    public function execute(int $documento): ?Camper
+    {
         return $this->repo->getById($documento);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

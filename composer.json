@@ -1,7 +1,6 @@
 {
-    "name": "kevincito/api-basic-slim",
-    "description": "Solo slim",
-    "type": "project",
+    "name": "adds/api-basic-slim",
+    "description": "Una API basica de Slim",
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -10,7 +9,7 @@
     },
     "authors": [
         {
-            "name": "kevincito0987",
+            "name": "Kevin Angarita",
             "email": "kevinangaritacaamano@gmail.com"
         }
     ],

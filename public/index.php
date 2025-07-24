@@ -3,8 +3,8 @@
 use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Server\RequestHandlerInterface as Handler;
 use App\Middleware\JsonBodyParserMiddleware;
+use Psr\Http\Server\RequestHandlerInterface as Handler;
 
 return function (App $app) {
     //Middleware
@@ -15,7 +15,7 @@ return function (App $app) {
         return $response->withHeader('Content-Type', 'application/json');
     });
 
-$app->add(new JsonBodyParserMiddleware());
+    $app->add(new JsonBodyParserMiddleware());
 
 };
 

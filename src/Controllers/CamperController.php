@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\UseCases\GetAllCampers;
 use App\UseCases\GetCamperById;
 use App\UseCases\CreateCamper;
+use App\UseCases\UpdateCamper;
 
 
 class CamperController
@@ -43,11 +44,20 @@ class CamperController
             return $response->withStatus(500);
         }
         $response->getBody()->write(json_encode($camper));
-        return $response->withStatus(201);
-    }
-    public function update(Request $request, Response $response): Response
-    {
         return $response;
+    }
+    public function update(Request $request, Response $response, array $args): Response
+    {
+        $documento = (int)$args['documento'];
+        $data = $request->getParsedBody();
+        $useCase = new UpdateCamper($this->repo);
+        $success = $useCase->execute($documento, $data);
+        if (!$success) {
+            $response->getBody()->write(json_encode(['error' => 'Error al actualizar el camper']));
+            return $response->withStatus(500);
+        }
+        $response->getBody()->write(json_encode(['success' => 'Camper actualizado correctamente']));
+        return $response->withStatus(204);
     }
     public function destroy(Request $request, Response $response): Response
     {

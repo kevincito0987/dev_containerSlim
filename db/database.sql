@@ -1,8 +1,9 @@
 
+DROP DATABASE IF EXISTS taller_slim;
 DROP DATABASE IF EXISTS php_pdo;
-CREATE DATABASE IF NOT EXISTS php_pdo;
+CREATE DATABASE IF NOT EXISTS taller_slim;
 
-USE php_pdo;
+USE taller_slim;
 
 DROP TABLE products;
 CREATE TABLE products (

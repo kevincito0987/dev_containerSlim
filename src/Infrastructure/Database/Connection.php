@@ -1,7 +1,6 @@
 <?php 
 
 namespace App\Infrastructure\Database;
-
 use Exception;
 use Illuminate\Database\Capsule\Manager as Capsule;
 

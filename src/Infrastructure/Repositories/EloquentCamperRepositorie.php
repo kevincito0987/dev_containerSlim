@@ -15,6 +15,9 @@ class EloquentCamperRepositorie implements CamperRepositoryInterface{
         //Select * FROM campers WHERE id = $documento;
 
         return Camper::find($documento);
+
+        //Filters
+        //return Camper::where('documento', $documento)->first();
     }
     public function create(array $data): Camper {
         return Camper::create($data);

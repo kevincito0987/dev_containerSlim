@@ -2,26 +2,22 @@
 
 require_once "vendor/autoload.php";
 
-use App\Middleware\JsonBodyParserMiddleware;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Server\RequestHandlerInterface as Handler;
 use Slim\Factory\AppFactory;
+use Dotenv\Dotenv;
 
+$container = require_once __DIR__ . '/bootstrap/container.php';
 
+AppFactory::setContainer($container);
 $app = AppFactory::create();
 
-//Middleware
-//Global Middleware
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-$app->add(function (Request $req, Handler $han): Response {
-    $response = $han->handle($req);
-    return $response->withHeader('Content-Type', 'application/json');
-});
-
-
-
-$app->add(new JsonBodyParserMiddleware());
+(require_once __DIR__ . '/public/index.php')($app);
+(require_once __DIR__ . '/routes/campers.php')($app);
 
 
 $app->run();
+
+
+?>

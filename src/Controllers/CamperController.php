@@ -7,6 +7,7 @@ use App\UseCases\CreateCamper;
 use App\UseCases\GetAllCampers;
 use App\UseCases\GetCamperById;
 use App\UseCases\UpdateCamper;
+use App\UseCases\DeleteCamper;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -54,8 +55,20 @@ class CamperController
         return $response->withStatus(204);
     }
 
-    public function destroy(Request $request, Response $response): Response
-    {
-        return $response;
+    public function destroy(Request $request, Response $response, array $args): Response
+{
+ // Se pasa el documento del camper en la URL y se obtiene el camper con ese documento se elimina y se devuelve la respuesta, y que al eliminar al camper me reordene la lista de campers con sus ids.
+        $documento = (int)$args['documento'];
+        $useCase = new DeleteCamper($this->repo);
+        $success = $useCase->execute($documento);
+        if (!$success) {
+            $response->getBody()->write(json_encode(["error" => "Camper no registrado en la plataforma"]));
+            return $response->withStatus(404);
+        }
+        $response->getBody()->write(json_encode([
+            "message" => "Camper eliminado exitosamente",
+            "documento_camper_eliminado" => $documento
+        ]));
+        return $response->withStatus(200);
     }
 }

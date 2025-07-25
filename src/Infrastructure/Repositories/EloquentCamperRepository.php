@@ -42,9 +42,9 @@ class EloquentCamperRepository implements CamperRepositoryInterface
 
     public function delete(int $documento): bool
     {
-        // SELECT * FROM campers WHERE id = $documento;
-        $camper = Camper::find($documento);
-        // DELETE FROM campers WHERE id = $documento;
+        // SELECT * FROM campers WHERE documento = $documento;
+        $camper = $this->getById($documento);
+        // DELETE FROM campers WHERE documento = $documento;
         return $camper ? $camper->delete() : false;
     }
 }

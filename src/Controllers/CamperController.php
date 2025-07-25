@@ -57,18 +57,24 @@ class CamperController
 
     public function destroy(Request $request, Response $response, array $args): Response
 {
- // Se pasa el documento del camper en la URL y se obtiene el camper con ese documento se elimina y se devuelve la respuesta, y que al eliminar al camper me reordene la lista de campers con sus ids.
-        $documento = (int)$args['documento'];
-        $useCase = new DeleteCamper($this->repo);
-        $success = $useCase->execute($documento);
-        if (!$success) {
-            $response->getBody()->write(json_encode(["error" => "Camper no registrado en la plataforma"]));
-            return $response->withStatus(404);
-        }
+    $documento = (int)$args['documento'];
+    $useCase = new DeleteCamper($this->repo);
+
+    $deletedCamper = $useCase->execute($documento);
+
+    if (!$deletedCamper) {
         $response->getBody()->write(json_encode([
-            "message" => "Camper eliminado exitosamente",
-            "documento_camper_eliminado" => $documento
+            "error" => "Camper no registrado en la plataforma"
         ]));
-        return $response->withStatus(200);
+        return $response->withStatus(404);
     }
+
+    $response->getBody()->write(json_encode([
+        "message" => "Camper eliminado exitosamente",
+        "camper_eliminado" => $deletedCamper
+    ]));
+
+    return $response->withStatus(200);
+}
+
 }

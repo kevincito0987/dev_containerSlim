@@ -5,7 +5,7 @@ namespace App\Domain\Repositories;
 use App\Domain\Models\User;
 
 
-class UserRepositoryInterface {
+interface   UserRepositoryInterface {
 
     public function create(array $data): User;
 

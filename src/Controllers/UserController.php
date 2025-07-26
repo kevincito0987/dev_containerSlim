@@ -5,9 +5,6 @@ use App\Domain\Repositories\UserRepositoryInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-
-
-
 class UserController {
     public function __construct(private UserRepositoryInterface $repo) {}
 

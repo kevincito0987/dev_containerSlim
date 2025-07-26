@@ -24,7 +24,8 @@ class UserController {
             $data['rol'] ?? 'user'
         );
 
-        $userDTO = $this->useCase->execute($dto);
+        $useCase = new CreateUser($this->repo);
+        $userDTO = $useCase->execute($dto);
 
         $response->getBody()->write(json_encode($userDTO));
         return $response->withStatus(201);

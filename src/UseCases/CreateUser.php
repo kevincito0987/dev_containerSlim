@@ -6,7 +6,7 @@ use App\DTOs\CreateUserDTO;
 use App\DTOs\UserResponseDTO;
 use App\Domain\Repositories\UserRepositoryInterface;
 
-class CreateUserUseCase {
+class CreateUser {
     private UserRepositoryInterface $repository;
 
     public function __construct(UserRepositoryInterface $repository) {

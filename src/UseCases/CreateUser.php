@@ -1,14 +1,15 @@
 <?php 
 
 namespace App\UseCases;
-use App\Domain\Repositories\UserRepositoryInterface as UserRepository;
+
 use App\DTOs\CreateUserDTO;
+use App\DTOs\UserResponseDTO;
+use App\Domain\Repositories\UserRepositoryInterface;
 
+class CreateUserUseCase {
+    private UserRepositoryInterface $repository;
 
-class CreateUser {
-    private UserRepository $repository;
-
-    public function __construct(UserRepository $repository) {
+    public function __construct(UserRepositoryInterface $repository) {
         $this->repository = $repository;
     }
 
@@ -19,21 +20,17 @@ class CreateUser {
             'rol' => $dto->rol,
             'password' => password_hash($dto->password, PASSWORD_DEFAULT),
         ];
-    
-        $userModel = $this->repository->create($data);
-    
+
+        $user = $this->repository->create($data);
+
         return new UserResponseDTO(
-            $userModel->id,
-            $userModel->nombre,
-            $userModel->email,
-            $userModel->rol
+            $user->id,
+            $user->nombre,
+            $user->email,
+            $user->rol
         );
     }
-    
 }
-
-
-
 
 
 ?>

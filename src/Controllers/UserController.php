@@ -41,18 +41,33 @@ class UserController {
     public function createAdmin(Request $request, Response $response): Response {
         $data = $request->getParsedBody();
     
-        $dto = new CreateAdminDTO(
-            $data['nombre'],
-            $data['email'],
-            $data['password']
-        );
+        try {
+            $dto = new CreateAdminDTO(
+                nombre: $data['nombre'] ?? '',
+                email: $data['email'] ?? '',
+                password: $data['password'] ?? ''
+            );
     
-        $useCase = new CreateAdmin($this->repo);
-        $userDTO = $useCase->execute($dto);
+            $useCase = new CreateAdmin($this->repo);
+            $userDTO = $useCase->execute($dto);
     
-        $response->getBody()->write(json_encode($userDTO));
-        return $response->withStatus(201);
+            $response->getBody()->write(json_encode($userDTO));
+            return $response->withStatus(201);
+        } catch (\InvalidArgumentException $e) {
+            $response->getBody()->write(json_encode([
+                'error' => 'Datos inválidos',
+                'mensaje' => $e->getMessage()
+            ]));
+            return $response->withStatus(422);
+        } catch (\DomainException $e) {
+            $response->getBody()->write(json_encode([
+                'error' => 'Conflicto de datos',
+                'mensaje' => $e->getMessage()
+            ]));
+            return $response->withStatus(409);
+        }
     }
+    
 }
 
 

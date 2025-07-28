@@ -14,14 +14,7 @@ class CreateUser {
     }
 
     public function execute(CreateUserDTO $dto): UserResponseDTO {
-        $data = [
-            'nombre' => $dto->nombre,
-            'email' => $dto->email,
-            'rol' => $dto->rol,
-            'password' => password_hash($dto->password, PASSWORD_DEFAULT),
-        ];
-
-        $user = $this->repository->create($data);
+        $user = $this->repository->create($dto);
 
         return new UserResponseDTO(
             $user->id,
@@ -31,6 +24,7 @@ class CreateUser {
         );
     }
 }
+
 
 
 ?>

@@ -43,6 +43,11 @@ class CreateUserDTO
             "email" => $this->email,
         ];
     }
+
+    // ⬅️ Getter para acceder al hash
+    public function getPassword(): string {
+        return $this->password;
+    }
 }
 
 

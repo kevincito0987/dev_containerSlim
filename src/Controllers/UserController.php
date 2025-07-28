@@ -12,24 +12,31 @@ use App\UseCases\CreateAdmin;
 class UserController {
     public function __construct(private UserRepositoryInterface $repo) {}
 
-    private CreateUser $useCase;
-
     public function createUser(Request $request, Response $response): Response {
         $data = $request->getParsedBody();
-
-        $dto = new CreateUserDTO(
-            $data['nombre'],
-            $data['email'],
-            $data['password'],
-            $data['rol'] ?? 'user'
-        );
-
-        $useCase = new CreateUser($this->repo);
-        $userDTO = $useCase->execute($dto);
-
-        $response->getBody()->write(json_encode($userDTO));
-        return $response->withStatus(201);
+    
+        try {
+            $dto = new CreateUserDTO(
+                nombre: $data['nombre'] ?? '',
+                email: $data['email'] ?? '',
+                password: $data['password'] ?? '',
+                rol: 'user'
+            );
+    
+            $useCase = new CreateUser($this->repo);
+            $userDTO = $useCase->execute($dto);
+    
+            $response->getBody()->write(json_encode($userDTO));
+            return $response->withStatus(201);
+        } catch (\InvalidArgumentException $e) {
+            $response->getBody()->write(json_encode([
+                'error' => 'Validación fallida',
+                'detalles' => $e->getMessage()
+            ]));
+            return $response->withStatus(422);
+        }
     }
+    
 
     public function createAdmin(Request $request, Response $response): Response {
         $data = $request->getParsedBody();
@@ -47,9 +54,6 @@ class UserController {
         return $response->withStatus(201);
     }
 }
-
-
-
 
 
 ?>

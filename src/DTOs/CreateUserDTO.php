@@ -5,7 +5,7 @@ namespace App\DTOs;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator as v;
 
-class UserDTO
+class CreateUserDTO
 {
 
     private readonly string $password;

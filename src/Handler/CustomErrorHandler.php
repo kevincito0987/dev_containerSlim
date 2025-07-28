@@ -14,7 +14,7 @@ use Throwable;
 
 class CustomErrorHandler implements ErrorHandlerInterface {
 
-    public function __construct(ResponseFactoryInterface $response) {}
+    public function __construct(private ResponseFactoryInterface $response) {}
 
     public function __invoke(ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails, bool $logErrors, bool $logErrorDetails): ResponseInterface
     {
